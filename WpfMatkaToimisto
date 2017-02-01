@@ -1,0 +1,838 @@
+<Window x:Class="WpfMatka8.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       Title="MainWindow" Height="520" Width="800" Loaded="Window_Loaded">
+
+    <TabControl HorizontalAlignment="Center" Height="460" Width="600">
+        <TabItem Header="Ekasivu">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+
+                <Label Content="Matkakohteet ja matkustajat" FontSize="25" FontStyle="Italic"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Label Content="Kotimaa" FontSize="12" FontStyle="Italic" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Label Content="Ulkomaa" FontSize="12" FontStyle="Italic" Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Label Content="Valinnat" FontSize="12" FontStyle="Italic" Grid.Row="1" Grid.Column="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <ListBox x:Name="lstKotimaa" Grid.Row="2" Grid.Column="1" Width="120" SelectionChanged="lstKotimaa_SelectionChanged"  />
+                <ListBox x:Name="lstUlkomaa" Grid.Row="2"  Grid.Column="3" Width="120" SelectionChanged="lstUlkomaa_SelectionChanged" />
+                <ListBox x:Name="lstValinnat" Width="120" Grid.Row="2" Grid.Column="6" Grid.RowSpan="2"></ListBox>
+
+                <Label Height="40" Width="120" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Content="Matkustajien lkm" ></Label>
+                <Label Height="40" Width="120" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right"  Content="Lasten lkm" ></Label>
+
+                <TextBox x:Name="txtMatkustajienLkm" Text="0" Height="40" Width="120" Grid.Column="3" Grid.Row="3" KeyDown="txtMatkustajienLkm_KeyDown" ></TextBox>
+                <TextBox x:Name="txtLastenLkm" Text="0" Height="40" Width="120" Grid.Column="3" Grid.Row="4" KeyDown="txtLastenLkm_KeyDown"></TextBox>
+                <Button Content="Laske hinta" Grid.Column="6" Grid.Row="4" Height=" 50" Width="100" Click="Button_Click"/>
+                <Button Content="Ohje" Grid.Column="0" Grid.Row="4" Height="50" Click="Button_Click_2" />
+                
+                <Image x:Name="imgKuveja" Grid.Row="2" Grid.RowSpan="2"> </Image>
+
+            </Grid>
+        </TabItem>
+
+
+        <TabItem Header="Hotelli / paketit" Height="23" VerticalAlignment="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Content="Hotelli / paketti valinnat" FontSize="25" FontStyle="Italic"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Label Content="Hotellin taso" FontSize="12" FontStyle="Italic"  Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Label Content="Paketit" FontSize="12" FontStyle="Italic"  Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Label Content="Valinnat" FontSize="12" FontStyle="Italic" Grid.Row="1" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+                    <StackPanel Height="90" VerticalAlignment="Bottom">
+                        <RadioButton Checked="rbGold_Checked" Content="Gold = 310€" x:Name="rbGold" GroupName="hotel" Height="30" Width="100" HorizontalAlignment="Center" ></RadioButton>
+                        <RadioButton Content="Silver = 210€" x:Name="rbSilver" GroupName="hotel" Height="30" Width="100" HorizontalAlignment="Center" Checked="rbSilver_Checked" />
+                        <RadioButton Content="Bronze = 130€" x:Name="rbBronze" GroupName="hotel" Height="30" Width="100" HorizontalAlignment="Center" Checked="rbBronze_Checked" ></RadioButton>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
+                    <StackPanel>
+                        <CheckBox x:Name="cbKaupunki" IsChecked="False" Checked="kaupunki_Chekced"  Content="Kaupunki = 200€" Height="30" Width="120" HorizontalAlignment="Center" ></CheckBox>
+                        <CheckBox x:Name="cbLähiseutu" IsChecked="False" Checked="lähiseutu_Checked"  Content="Lähiseutu = 210€" Height="30" Width="120" HorizontalAlignment="Center" ></CheckBox>
+                        <CheckBox x:Name="cbAktiviteetti" IsChecked="False" Checked="aktiviteet_Checked"  Content="Aktiviteetti = 220€" Height="30" Width="120" HorizontalAlignment="Center" ></CheckBox>
+                    </StackPanel>
+                </Grid>
+                <CheckBox x:Name="cbKuljetus" IsChecked="False" Checked="kuljetus_Checked" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Center"  Content="Lentokenttäkuljetus = 50€" VerticalAlignment="Center" ></CheckBox>
+                <ListBox x:Name="lstValinnat2" Width="120" Grid.Row="2" Grid.Column="4" Grid.RowSpan="2"></ListBox>
+                <Button Content="Laske uusi hinta" Height=" 50" Width="100" Grid.Row="4" Grid.Column="4" Click="Button_Click_1"></Button>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Asiakkaan tiedot ja matkan varaus" Height="23" VerticalAlignment="Bottom">
+            <Grid Width="600">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Content="Matkan varaus" FontSize="25" FontStyle="Italic"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                <TextBox x:Name="txtAsiakasTunnus" Text="10001" Height="30" Width="100" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBox>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Syötä asiakas tunnuksesi alla olevaan kenttään" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Text="Valinnat" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+                
+                
+                            <ListBox x:Name="lstAsiakkaanTiedot" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" ></ListBox>
+                            <ListBox x:Name="lstValitutTiedot" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"></ListBox>
+                   
+
+                <Button Content="Varaa matka" x:Name="btnTulostaTiedot" Height=" 50" Width="100" VerticalAlignment="Bottom" Grid.Row="3" Grid.Column="4" Click="btnTulostaTiedot_Click" ></Button>
+                <Button x:Name="btnHaeAsiakkaanTiedot" Height=" 50" Width="100" Content="Hae tiedot" Grid.Row="5" Click="btnHaeAsiakkaanTiedot_Click"></Button>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Tulostus" Height="23" VerticalAlignment="Bottom">
+            <Grid Width="600">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="170"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <FlowDocumentReader Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1" Grid.RowSpan="4" Height="300">
+                <FlowDocument x:Name="flowDokumentti" 
+                          IsColumnWidthFlexible="False" 
+                          IsOptimalParagraphEnabled="true" 
+                          IsHyphenationEnabled="true" 
+                          PagePadding="Auto"
+                          ColumnWidth="Auto">
+                        <Paragraph>
+                            <Label Content="Matkan Tiedot" Grid.Row="0" Grid.Column="1" Width="120" Height="50" ></Label>
+                            <TextBlock x:Name="txtTulostettavat" TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" />
+                    </Paragraph>
+            </FlowDocument>
+            </FlowDocumentReader>
+                <Button x:Name="Tulosta" Content="Tulosta Tiedot" Grid.Row="3" Grid.Column="3" Width="100" Height="50" Click="Tulosta_Click" ></Button>
+            </Grid>
+
+        </TabItem> 
+
+    </TabControl>
+</Window>
+
+
+_________________________________________________________________________________________________________________________________
+
+//Actual program code starts here!
+
+using System;
+using System.Collections.Generic;
+using System.Xml;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WpfMatka8
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+
+        int hintaYhteensä = 0, lastenLkm = 0, aikuistenLkm = 0, matkustajienHintaYhteensä = 0, matkatietolkm = 0;
+        int valittu = 0, valittuPakettiK = 0, valittuPakettiL = 0, valittuPakettiA = 0, kuljetus = 0, valittuKohde;
+        string strMatkanHinta = "Hinta yhteensä", HintaperHlo = "Matkan Hinta /hlö";
+        string strLastenLkm = "Lasten lkm", strAikuistenLkm = "Aikuisten lkm";
+
+        //Määritellään struct rakenne ja array
+        struct smatka
+        {
+            public string kohde;
+            public int hinta;
+            public string tyyppi;
+            public string kesto;
+            public string paketti;
+            public string etuNimi;
+            public string sukuNimi;
+            public string asiakasNro;
+            public string lahiOsoite;
+            public string postiNumero;
+            public string postiToimipaikka;
+            public string sahkoPosti;
+            public string puhelin;
+
+        }
+
+        smatka[] matkatiedot = new smatka[50];
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            XmlReader reader = XmlReader.Create("kohdevalinta4.xml");
+
+            int i = 0;
+
+            // haetaan tiedot Xml:stä
+            while (reader.Read())
+            {
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "kohde")
+                {
+                    reader.Read();
+                    matkatiedot[i].kohde = reader.Value;
+                }
+
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "hinta")
+                {
+                    reader.Read();
+                    matkatiedot[i].hinta = int.Parse(reader.Value);
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "kesto")
+                {
+                    reader.Read();
+                    matkatiedot[i].kesto = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "paketti")
+                {
+                    reader.Read();
+                    matkatiedot[i].paketti = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "etunimi")
+                {
+                    reader.Read();
+                    matkatiedot[i].etuNimi = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "sukunimi")
+                {
+                    reader.Read();
+                    matkatiedot[i].sukuNimi = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "asiakasnro")
+                {
+                    reader.Read();
+                    matkatiedot[i].asiakasNro = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "lahiosoite")
+                {
+                    reader.Read();
+                    matkatiedot[i].lahiOsoite = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "puhelin")
+                {
+                    reader.Read();
+                    matkatiedot[i].puhelin = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "postinumero")
+                {
+                    reader.Read();
+                    matkatiedot[i].postiNumero = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "sahkoposti")
+                {
+                    reader.Read();
+                    matkatiedot[i].sahkoPosti = reader.Value;
+                }
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "postitoimipaikka")
+                {
+                    reader.Read();
+                    matkatiedot[i].postiToimipaikka = reader.Value;
+                }
+
+
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "tyyppi")
+                {
+                    reader.Read();
+                    matkatiedot[i].tyyppi = reader.Value;
+                    i++;
+                    matkatietolkm = i;
+                }
+
+            }
+   
+
+            //kutsutaan ei palauttava aliohjelma
+            laitaKohteetListaLaatikkoon();
+
+        }
+
+        void laitaKohteetListaLaatikkoon()
+        {
+            for (int ind = 0; ind < matkatiedot.Length; ind++)
+            {
+                if (matkatiedot[ind].tyyppi == "U")
+                {
+                    lstUlkomaa.Items.Add(matkatiedot[ind].kohde);
+                }
+                else if (matkatiedot[ind].tyyppi == "K")
+                {
+                    lstKotimaa.Items.Add(matkatiedot[ind].kohde);
+                }
+
+            }
+        }
+
+        private void lstUlkomaa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+
+            if (lstUlkomaa.SelectedIndex >= 0)
+            {
+                lstValinnat.Items.Clear();
+                lstValinnat2.Items.Clear();
+                lstKotimaa.SelectedIndex = -1;
+
+                for (int i = 0; i < matkatiedot.Length; i++)
+                {
+                    if (matkatiedot[i].kohde == lstUlkomaa.SelectedItem.ToString())
+                    {
+                        
+                        lstValinnat.Items.Add(matkatiedot[i].kohde);
+                        lstValinnat.Items.Add(HintaperHlo);
+                        lstValinnat.Items.Add(matkatiedot[i].hinta);
+
+                        valittuKohde = i;
+                        break;
+                    }
+                }
+
+                if (matkatiedot[valittuKohde].kohde == "Kreikka - Kos")
+                {
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    string kuvaKos = " C:\\Users\\froxxen\\Documents\\WpfMatka8Final\\kuvat\\kos.jpg";
+               
+                    myBitmapImage.UriSource = new Uri(kuvaKos);
+                    myBitmapImage.EndInit();
+                    imgKuveja.Source = myBitmapImage;
+                }
+
+                else if (matkatiedot[valittuKohde].kohde == "Turkki - Alanya")
+                {
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    string kuvaAlanya = " C:\\Users\\froxxen\\Documents\\WpfMatka8Final\\kuvat\\Alanya.jpg";
+                    myBitmapImage.UriSource = new Uri(kuvaAlanya);
+                    myBitmapImage.EndInit();
+                    imgKuveja.Source = myBitmapImage;
+                }
+                else
+                {
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    string kuvaMallorca = " C:\\Users\\froxxen\\Documents\\WpfMatka8Final\\kuvat\\rhodos.jpeg";
+                    myBitmapImage.UriSource = new Uri(kuvaMallorca);
+                    myBitmapImage.EndInit();
+                    imgKuveja.Source = myBitmapImage;
+                }
+
+
+           }
+
+        }
+
+        private void lstKotimaa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+          
+
+            if (lstKotimaa.SelectedIndex >= 0)
+            {
+                lstValinnat.Items.Clear();
+                lstValinnat2.Items.Clear();
+                lstUlkomaa.SelectedIndex = -1;
+
+                for (int i = 0; i < matkatiedot.Length; i++)
+                {
+                    if (matkatiedot[i].kohde == lstKotimaa.SelectedItem.ToString())
+                    {
+
+                        lstValinnat.Items.Add(matkatiedot[i].kohde);
+                        lstValinnat.Items.Add(HintaperHlo);
+                        lstValinnat.Items.Add(matkatiedot[i].hinta);
+
+                        valittuKohde = i;
+                        break;
+                    }
+                }
+
+                if (matkatiedot[valittuKohde].kohde == "Suomi - Tampere")
+                {
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    string kuvaTampere = "C:\\Users\\froxxen\\Documents\\WpfMatka8Final\\kuvat\\tampere.jpg";
+                    myBitmapImage.UriSource = new Uri(kuvaTampere);
+                    myBitmapImage.EndInit();
+                    imgKuveja.Source = myBitmapImage;
+                }
+
+                else if (matkatiedot[valittuKohde].kohde == "Suomi - Helsinki")
+                {
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    string kuvaHelsinki = " C:\\Users\\froxxen\\Documents\\WpfMatka8Final\\kuvat\\helsinki.jpg";
+                    myBitmapImage.UriSource = new Uri(kuvaHelsinki);
+                    myBitmapImage.EndInit();
+                    imgKuveja.Source = myBitmapImage;
+                }
+                else 
+                {
+                    BitmapImage myBitmapImage = new BitmapImage();
+                    myBitmapImage.BeginInit();
+                    string kuvaKuusamo = " C:\\Users\\froxxen\\Documents\\WpfMatka8Final\\kuvat\\kuusamo.jpg";
+                    myBitmapImage.UriSource = new Uri(kuvaKuusamo);
+                    myBitmapImage.EndInit();
+                    imgKuveja.Source = myBitmapImage;
+                }
+
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            // kutsutaan palauttava aliohjelma
+            matkustajienHintaYhteensä = laskeMatkustajienHinta();
+
+            lstValinnat.Items.Clear();
+            lstValinnat.Items.Add(matkatiedot[valittuKohde].kohde);
+
+            lstValinnat.Items.Add(strMatkanHinta);
+            lstValinnat.Items.Add(matkustajienHintaYhteensä);
+
+            lstValinnat2.Items.Clear();
+            lstValinnat2.Items.Add(matkatiedot[valittuKohde].kohde);
+
+            lstValinnat2.Items.Add(strMatkanHinta);
+            lstValinnat2.Items.Add(matkustajienHintaYhteensä);
+
+        }
+
+        private void txtMatkustajienLkm_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Return)
+            {
+                // kutsutaan palauttava aliohjelma
+                matkustajienHintaYhteensä = laskeMatkustajienHinta();
+
+                lstValinnat.Items.Clear();
+                lstValinnat.Items.Add(matkatiedot[valittuKohde].kohde);
+
+                lstValinnat.Items.Add(strMatkanHinta);
+                lstValinnat.Items.Add(matkustajienHintaYhteensä);
+
+                lstValinnat2.Items.Clear();
+                lstValinnat2.Items.Add(matkatiedot[valittuKohde].kohde);
+
+                lstValinnat2.Items.Add(strMatkanHinta);
+                lstValinnat2.Items.Add(matkustajienHintaYhteensä);
+
+            }
+        }
+
+        private void txtLastenLkm_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Return)
+            {
+                // kutsutaan palauttava aliohjelma
+                matkustajienHintaYhteensä = laskeMatkustajienHinta();
+
+                lstValinnat.Items.Clear();
+                lstValinnat.Items.Add(matkatiedot[valittuKohde].kohde);
+
+                lstValinnat.Items.Add(strMatkanHinta);
+                lstValinnat.Items.Add(matkustajienHintaYhteensä);
+
+                lstValinnat2.Items.Clear();
+                lstValinnat2.Items.Add(matkatiedot[valittuKohde].kohde);
+
+                lstValinnat2.Items.Add(strMatkanHinta);
+                lstValinnat2.Items.Add(matkustajienHintaYhteensä);
+
+            }
+        }
+
+
+        // palauttava aliohjelma
+        int laskeMatkustajienHinta()
+        {
+            int matkanHinta = 0, lastenHinta = 0, aikuistenHinta = 0;
+
+            lstValitutTiedot.Items.Add(matkatiedot[valittuKohde].kohde);
+
+            lastenLkm = Convert.ToInt32(txtLastenLkm.Text);
+            aikuistenLkm = Convert.ToInt32(txtMatkustajienLkm.Text);
+            matkanHinta = matkatiedot[valittu].hinta;
+
+            if (lastenLkm > 0)
+            {
+                lastenHinta = (lastenLkm * matkanHinta) / 2;
+            }
+
+            if (aikuistenLkm > 0)
+            {
+                aikuistenHinta = aikuistenLkm * matkanHinta;
+            }
+
+            matkustajienHintaYhteensä = lastenHinta + aikuistenHinta;
+
+            return matkustajienHintaYhteensä;
+        }
+
+        private void rbGold_Checked(object sender, RoutedEventArgs e)
+        {
+            if (rbGold.IsChecked == true)
+            {
+                for (int ind = 0; ind < matkatiedot.Length; ind++)
+                {
+                    if (matkatiedot[ind].tyyppi == "G")
+                    {
+                        valittu = ind;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void rbSilver_Checked(object sender, RoutedEventArgs e)
+        {
+            if (rbSilver.IsChecked == true)
+            {
+
+                for (int ind = 0; ind < matkatiedot.Length; ind++)
+                {
+                    if (matkatiedot[ind].tyyppi == "S")
+                    {
+                        valittu = ind;
+                        break;
+                    }
+
+                }
+            }
+        }
+
+        private void rbBronze_Checked(object sender, RoutedEventArgs e)
+        {
+            if (rbBronze.IsChecked == true)
+            {
+
+                for (int ind = 0; ind < matkatiedot.Length; ind++)
+                {
+                    if (matkatiedot[ind].tyyppi == "B")
+                    {
+                        valittu = ind;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        private void kaupunki_Chekced(object sender, RoutedEventArgs e)
+        {
+            for (int ind = 0; ind < matkatiedot.Length; ind++)
+            {
+                if (matkatiedot[ind].tyyppi == "KA")
+                {
+                    valittuPakettiK = ind;
+                    break;
+                }
+            }
+        }
+
+        private void lähiseutu_Checked(object sender, RoutedEventArgs e)
+        {
+            for (int ind = 0; ind < matkatiedot.Length; ind++)
+            {
+                if (matkatiedot[ind].tyyppi == "L")
+                {
+                    valittuPakettiL = ind;
+                    break;
+                }
+            }
+        }
+
+        private void aktiviteet_Checked(object sender, RoutedEventArgs e)
+        {
+            for (int ind = 0; ind < matkatiedot.Length; ind++)
+            {
+                if (matkatiedot[ind].tyyppi == "A")
+                {
+                    valittuPakettiA = ind;
+                    break;
+                }
+            }
+        }
+
+        private void kuljetus_Checked(object sender, RoutedEventArgs e)
+        {
+            for (int ind = 0; ind < matkatiedot.Length; ind++)
+            {
+                if (matkatiedot[ind].tyyppi == "LK")
+                {
+                    kuljetus = ind;
+                    break;
+                }
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            int hotellinHinta = 0, pakettiK_Hinta = 0, pakettiA_Hinta = 0, pakettiL_Hinta = 0, kuljetusHinta = 0;
+
+            lstValitutTiedot.Items.Clear();
+
+            lstValitutTiedot.Items.Add(strAikuistenLkm);
+            lstValitutTiedot.Items.Add(txtMatkustajienLkm.Text);
+            lstValitutTiedot.Items.Add(strLastenLkm);
+            lstValitutTiedot.Items.Add(txtLastenLkm.Text);
+
+            // Tällä tavalla varmistetaan, että jos hotellia ei ole valittu, ei hintaan lisätä struct rakenteesta
+            // jotain muuta hinta tietoa
+            if (matkatiedot[valittu].tyyppi == "G")
+            {
+                hotellinHinta = matkatiedot[valittu].hinta;
+                lstValitutTiedot.Items.Add("Hotelli: Gold");
+            }
+            else if (matkatiedot[valittu].tyyppi == "S")
+            {
+                hotellinHinta = matkatiedot[valittu].hinta;
+                lstValitutTiedot.Items.Add("Hotelli: Silver");
+            }
+            else if (matkatiedot[valittu].tyyppi == "B")
+            {
+                hotellinHinta = matkatiedot[valittu].hinta;
+                lstValitutTiedot.Items.Add("Hotelli: Bronze");
+            }
+            else
+            {
+                hotellinHinta = 0;
+            }
+
+            hintaYhteensä = matkustajienHintaYhteensä;
+           
+            // haetaan muuttujaan pakettien hinnat
+            pakettiA_Hinta = matkatiedot[valittuPakettiA].hinta;
+            pakettiK_Hinta = matkatiedot[valittuPakettiK].hinta;
+            pakettiL_Hinta = matkatiedot[valittuPakettiL].hinta;
+            kuljetusHinta = matkatiedot[kuljetus].hinta;
+
+            if (cbKaupunki.IsChecked != true)
+            {
+                pakettiK_Hinta = 0;
+            }
+            else
+            {
+                lstValitutTiedot.Items.Add("Paketti: Kaupunki");
+            }
+
+            if (cbLähiseutu.IsChecked != true)
+            {
+                pakettiL_Hinta = 0;
+            }
+            else
+            {
+                lstValitutTiedot.Items.Add("Paketti: Lähiseutu");
+            }
+
+            if (cbAktiviteetti.IsChecked != true)
+            {
+                pakettiA_Hinta = 0;
+            }
+            else
+            {
+                lstValitutTiedot.Items.Add("Paketti: Aktiviteetti");
+            }
+
+            if (cbKuljetus.IsChecked != true)
+            {
+                kuljetusHinta = 0;
+            }
+            else
+            {
+                lstValitutTiedot.Items.Add("Kuljetus: Kyllä");
+            }
+
+            // lasketaan kuljetus/hotellit/paketit yhteen
+            hintaYhteensä += (kuljetusHinta * lastenLkm) / 2;
+            hintaYhteensä += (kuljetusHinta * aikuistenLkm);
+
+            hintaYhteensä += (hotellinHinta * lastenLkm) / 2;
+            hintaYhteensä += hotellinHinta * aikuistenLkm;
+
+            hintaYhteensä += (pakettiA_Hinta * lastenLkm) / 2;
+            hintaYhteensä += pakettiA_Hinta * aikuistenLkm;
+
+            hintaYhteensä += (pakettiL_Hinta * lastenLkm) / 2;
+            hintaYhteensä += pakettiL_Hinta * aikuistenLkm;
+
+            hintaYhteensä += (pakettiK_Hinta * lastenLkm) / 2;
+            hintaYhteensä += pakettiK_Hinta * aikuistenLkm;
+
+            lstValinnat2.Items.Clear();
+            lstValinnat2.Items.Add(matkatiedot[valittuKohde].kohde);
+
+            lstValinnat2.Items.Add(strMatkanHinta);
+            lstValinnat2.Items.Add(hintaYhteensä);
+
+            lstValitutTiedot.Items.Add(strMatkanHinta);
+            lstValitutTiedot.Items.Add(hintaYhteensä);
+
+            for (int i = 0; i < lstValitutTiedot.Items.Count; i++)
+            {
+                if ((i + 1) < lstValitutTiedot.Items.Count)
+                    txtTulostettavat.Text += lstValitutTiedot.Items[i] + System.Environment.NewLine;
+                else
+                    txtTulostettavat.Text += lstValitutTiedot.Items[i];
+            }
+
+        }
+
+        private void btnHaeAsiakkaanTiedot_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstAsiakkaanTiedot != null)
+            {
+                lstAsiakkaanTiedot.Items.Clear();
+            }
+
+            if (txtAsiakasTunnus.Text == "10001")
+            {
+                for (int i = 0; i < matkatiedot.Length; i++)
+                {
+                    if (matkatiedot[i].asiakasNro == "10001")
+                    {
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].etuNimi);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].sukuNimi);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].lahiOsoite);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].postiNumero);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].postiToimipaikka);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].puhelin);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].sahkoPosti);
+                        break;
+                    }
+                }
+
+            }
+            if (txtAsiakasTunnus.Text == "10002")
+            {
+                for (int i = 0; i < matkatiedot.Length; i++)
+                {
+                    if (matkatiedot[i].asiakasNro == "10002")
+                    {
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].etuNimi);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].sukuNimi);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].lahiOsoite);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].postiNumero);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].postiToimipaikka);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].puhelin);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].sahkoPosti);
+                        break;
+                    }
+                }
+
+            }
+
+            if (txtAsiakasTunnus.Text == "10003")
+            {
+                for (int i = 0; i < matkatiedot.Length; i++)
+                {
+                    if (matkatiedot[i].asiakasNro == "10003")
+                    {
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].etuNimi);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].sukuNimi);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].lahiOsoite);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].postiNumero);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].postiToimipaikka);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].puhelin);
+                        lstAsiakkaanTiedot.Items.Add(matkatiedot[i].sahkoPosti);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Valitse matkan kohde listalaatikosta klikkaamalla sitä. Seuraavaksi kirjoita matkustajien määrä ja klikkaa laske hinta buttonia " + "\n" + "\n" + "Seuraavaksi valitse hotellit/paketit välilehdestä hotellin taso ja mahdolliset paketit" + "\n" + "Viimeisellä varaus sivulla näkyvät kaikki valinnat mitä olet tehnyt sekä hinta niille. Syötä asiakastunnuksesi tällä sivulla olevaan kenttään löytääksesi omat tietosi." + "\n"+ "\n" + "Sitten vain varaa matka ja tiedot lähetetään vielä sähköpostiisi");
+        }
+
+        private void btnTulostaTiedot_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstAsiakkaanTiedot.Items.Count == 0)
+            {
+                MessageBox.Show("Matkaa ei voi varata ilman asiakas tietoja!!!");
+            }
+            else 
+            { 
+            MessageBox.Show("Matka on varattu onnistuneesti");
+            }
+        }
+
+        private void Tulosta_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == true)
+                printDialog.PrintDocument(((IDocumentPaginatorSource)flowDokumentti).DocumentPaginator,
+                    "This is a Flow Document");
+        }
+    }
+}
