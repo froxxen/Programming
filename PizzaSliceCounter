@@ -1,0 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace pizzaSlicesProgram
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int people, pizzas, slices, slicesTotal, result, leftover, i;
+            string strPeople, strPizzas, strResult, strLeftOver, strSlices;
+
+                Console.WriteLine("How many people?");
+                strPeople = Console.ReadLine();
+
+                Console.WriteLine("How many pizzas do you have?");
+                strPizzas = Console.ReadLine();
+
+                Console.WriteLine("How many slices per pizza do you have?");
+                strSlices = Console.ReadLine();
+
+            // Let's check with while loop if user input is numeric
+            while ((int.TryParse(strPeople, out i) == false) || (int.TryParse(strSlices, out i) == false) || (int.TryParse(strPizzas, out i) == false))
+            {
+                Console.WriteLine("Not all given input was numeric! Please try again");
+
+                Console.WriteLine("How many people?");
+                strPeople = Console.ReadLine();
+
+                Console.WriteLine("How many pizzas do you have?");
+                strPizzas = Console.ReadLine();
+
+                Console.WriteLine("How many slices per pizza do you have?");
+                strSlices = Console.ReadLine();
+            }
+
+            pizzas = Convert.ToInt32(strPizzas);
+            slices = Convert.ToInt32(strSlices);
+            people = Convert.ToInt32(strPeople);
+
+            slicesTotal = pizzas * slices;
+            result = slicesTotal / people;
+            leftover = slicesTotal % people;
+
+            strLeftOver = Convert.ToString(leftover);
+            strResult = Convert.ToString(result);
+
+            // Checking if pizza slice count is even
+            if (leftover % 2 == 0)
+            {
+                // Cheking that pluralization goes properly depending on pieces of pizza per person
+                if (Convert.ToInt32(strResult) > 1)
+                {
+
+                    Console.WriteLine(strPeople + " people with " + strPizzas + " pizza");
+                    Console.WriteLine("Each person gets " + strResult + " pieces of pizza");
+                    Console.WriteLine("There are " + strLeftOver + " leftover pieces");
+
+                    Console.ReadKey();
+                }
+                else
+                {
+
+                    Console.WriteLine(strPeople + " people with " + strPizzas + " pizza");
+                    Console.WriteLine("Each person gets " + strResult + " piece of pizza");
+                    Console.WriteLine("There are " + strLeftOver + " leftover pieces");
+
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                if (Convert.ToInt32(strResult) > 1)
+                {
+
+                    Console.WriteLine(strPeople + " people with " + strPizzas + " pizza");
+                    Console.WriteLine("Each person gets " + strResult + " pieces of pizza");
+                    Console.WriteLine("There are " + strLeftOver + " leftover pieces");
+
+                    Console.ReadKey();
+                }
+                else
+                {
+
+                    Console.WriteLine(strPeople + " people with " + strPizzas + " pizza");
+                    Console.WriteLine("Each person gets " + strResult + " piece of pizza");
+                    Console.WriteLine("There are " + strLeftOver + " leftover pieces");
+
+                    Console.ReadKey();
+                }
+
+            }
+
+       }
+
+      }
+   }
