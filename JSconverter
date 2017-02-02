@@ -1,0 +1,63 @@
+<html>
+
+<script type="text/javascript" src="convert.js">
+</script>
+
+
+<body style="background-color: grey" onload="init()">
+<section>
+
+<h1> Tuumat senttimetreiksi</h1>
+
+<label>Tuuma 
+<input id="tuuma" size="10" type="number" onfocus="reset()"/> 
+</label>
+
+<label> 
+<input id="cm" size="10" type="number" onfocus="reset()"/> 
+CM
+</label>
+
+<input type="button" value="Converter" onclick="convert()"/>
+
+</section>
+</body>
+</html>
+
+
+_____________________________________________________________________________________________________
+
+//javascript file
+var inf, cmf;
+
+function init()
+{
+	inf = document.getElementById('tuuma');
+	cmf = document.getElementById('cm');
+
+}
+
+function reset()
+{
+	inf.value=""; 
+	cmf.value="";
+}
+
+function convert()
+{
+	var i = inf.value.replace(/ /,"");
+	if (i)
+	{
+		cmf.value = i * 2.54; return;
+	}
+ 
+	var c = cmf.value.replace(/ /,"");
+	
+	if (c)
+	{
+		inf.value = c / 2.54;
+	}
+	
+ }
+ 
+ 
