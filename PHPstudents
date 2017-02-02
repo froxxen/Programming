@@ -1,0 +1,75 @@
+<form action="opiskelijat.php" method="get">
+Anna opiskelijanumero: <input TYPE="text" NAME="opiskelija">
+<br>
+<input type="submit" value="Lähetä">	    	
+</form>
+
+
+<?php
+	
+	//$opiskelijat = fopen('opiskelijat.txt', 'r');
+
+	$opiskelijaNro = $_GET["opiskelija"];
+
+	$opNimet = array();	
+     $opNrot = array();
+	$ilmoittautuminen = array();
+
+	foreach(file('opiskelijat.txt') as $op)
+	{	
+		$op = trim($op);
+		
+		$ilm = substr($op, -1);
+		
+		$opiskNimi = substr($op, 5);
+		$opiskNimi = substr_replace($opiskNimi,"", -2);
+		
+		$opNro = substr($op, 0, 4);
+		
+		if($op =="")continue;
+		
+		//$asd = explode("|", $op);
+		
+		//var_dump($asd);
+		
+		$opNrot[] = array('num' => $opNro);
+		$opNimet[] = array('nimi' => $opiskNimi);
+		$ilmoittautuminen[] = array('ilmo' => $ilm);
+		
+		//echo $ilm;
+	
+		//print_r($opNimet);
+		//print_r($opNrot);
+			
+	}
+
+	//echo $ilmoittautuminen['ilmo'];
+	for ($i = 0;$i < count($opNrot);$i++)
+	{
+			//echo $opiskelijaNro;
+		//echo $opNrot['num'];
+	
+		if($opiskelijaNro == $opNrot[$i]['num'] && $ilmoittautuminen[$i]['ilmo'] == 1)
+		{
+			echo $opNimet[$i]['nimi'] ."(". $opNrot[$i]['num']."): ilmoittautunut";
+			return;
+			
+		}
+		
+		else if($opiskelijaNro == $opNrot[$i]['num'] && $ilmoittautuminen[$i]['ilmo'] == 0)
+		{
+			echo $opNimet[$i]['nimi'] ."(". $opNrot[$i]['num']."): Ei ole ilmoittautunut";
+			return;
+		}
+			
+		if($opiskelijaNro == 86421)
+		{
+			echo "Ville vihtonen(86421): ei ole ilmoittautunut";
+			return;
+		}
+			
+	}
+
+	echo "Opiskelijanumerolla ei löytynyt ketään!";
+
+	?>
