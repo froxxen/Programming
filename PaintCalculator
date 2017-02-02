@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace paintCalculator
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string strWidth, strHeight, round, strRadius;
+            decimal width, height, i, squarefeet, radius;
+            decimal gallons = 0;
+            const int conversion = 350;
+            const decimal pi = 3.14m;
+
+            Console.WriteLine("Is the room of which ceiling you want to paint a circle(yes or no)");
+            round = Console.ReadLine();
+
+            round = round.ToLower();
+
+            if (round == "yes")
+            {
+                Console.WriteLine("Give the rooms radius in feet");
+                strRadius = Console.ReadLine();
+
+                while (decimal.TryParse(strRadius, out i) == false)
+                {
+                    Console.WriteLine("Given input wasn't numeric, try again!");
+
+                    Console.WriteLine("Give the rooms radius in feet");
+                    strRadius = Console.ReadLine();
+                }
+
+                radius = Convert.ToDecimal(strRadius);
+
+                squarefeet = radius * pi;
+
+                gallons = squarefeet / conversion;
+
+                //Lets use math.ceiling functio to round result to upper integer
+                gallons = (int)Math.Ceiling(((double)squarefeet) / conversion);
+
+                Console.WriteLine("You will need to purchace " + gallons + " gallons of paint to cover "
+                    + squarefeet + " square feet.");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+
+                Console.WriteLine("Give widht of the ceiling");
+                strWidth = Console.ReadLine();
+
+                Console.WriteLine("Give height of the ceiling");
+                strHeight = Console.ReadLine();
+
+                while ((decimal.TryParse(strWidth, out i) == false) || (decimal.TryParse(strHeight, out i) == false))
+                {
+                    Console.WriteLine("Given input wasn't numeric, try again!");
+
+                    Console.WriteLine("Give widht of the ceiling");
+                    strWidth = Console.ReadLine();
+
+                    Console.WriteLine("Give height of the ceiling");
+                    strHeight = Console.ReadLine();
+                }
+
+                width = Convert.ToDecimal(strWidth);
+                height = Convert.ToDecimal(strHeight);
+
+                squarefeet = width * height;
+
+                gallons = squarefeet / conversion;
+
+                //Lets use math.ceiling functio to round result to upper integer
+                gallons = (int)Math.Ceiling(((double)squarefeet) / conversion);
+
+                    Console.WriteLine("You will need to purchace " + gallons + " gallons of paint to cover "
+                        + squarefeet + " square feet.");
+                    Console.ReadKey();
+                
+             
+            }
+
+        }
+    }
+}
