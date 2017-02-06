@@ -1,0 +1,106 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CurrencyConversion
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            decimal euros, result, conversion;
+            int i = 0;
+
+            decimal[] array = new decimal[8];
+            array[0] = 1.07303m;
+            array[1] = 0.86142m;
+            array[2] = 1.06560m;
+            array[3] = 1.40807m;
+            array[4] = 1.40368m;
+            array[5] = 72.1772m;
+            array[6] = 309.863m;
+            array[7] = 37.5978m;
+
+            string[] strarray = new string[8];
+            strarray[0] = " U.S dollar";
+            strarray[1] = " British pound";
+            strarray[2] = " Swiss Franc";
+            strarray[3] = " Canadian dollar";
+            strarray[4] = " Australian dollar";
+            strarray[5] = " Indian rupee";
+            strarray[6] = " Hungarian Florint";
+            strarray[7] = " Thai baht";
+
+            Console.WriteLine("How much money do you have in euros?");
+            euros = Convert.ToDecimal(Console.ReadLine());
+
+            Console.WriteLine("If you want to exhange your euros to U.S dollar enter 1 " + "\n"
+                + "For British pounds enter 2" + "\n" + "For Swiss Franc enter 3" + "\n" +
+                "For Canadian dollar enter 4" + "\n" + "For Australian dollar enter 5" + "\n" +
+                "For Indian rupee enter 6" + "\n" + "For Hungarian Florint enter 7" + "\n" + "For Thai baht enter 8");
+            conversion = Convert.ToDecimal(Console.ReadLine());
+
+            i = Convert.ToInt32(conversion);
+            
+            if (i >= 1)
+            {
+                i = i - 1;
+            }
+
+            switch (i)
+            {
+                case 0:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 1:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 2:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 3:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 4:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 5:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 6:
+                    result = euros * array[i];
+                    result = Math.Round(result ,2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+
+                case 7:
+                    result = euros * array[i];
+                    result = Math.Round(result, 2);
+                    Console.WriteLine("You have " + result + strarray[i]);
+                    break;
+            }
+
+            Console.ReadKey();
+        }
+    }
+}
