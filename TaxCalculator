@@ -1,0 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace selfcheckout
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string strPrice1, strPrice2, strPrice3, strQuantity1, strQuantity2, strQuantity3;
+            decimal Price1, Price2, Price3, quantity1, quantity2, quantity3, test, subtotal, priceTotal, taxPrice;
+            const decimal tax = 5.5m;
+
+            Console.WriteLine("Give price of product one");
+            strPrice1 = Console.ReadLine();
+
+            Console.WriteLine("Give price of product two");
+            strPrice2 = Console.ReadLine();
+
+            Console.WriteLine("Give price of product one");
+            strPrice3 = Console.ReadLine();
+
+            Console.WriteLine("Give quantity of product one");
+            strQuantity1 = Console.ReadLine();
+
+            Console.WriteLine("Give quantity of product two");
+            strQuantity2 = Console.ReadLine();
+
+            Console.WriteLine("Give quantity of product three");
+            strQuantity3 = Console.ReadLine();
+
+            // check if given input is numeric
+            while ((decimal.TryParse(strPrice1, out test) == false) || (decimal.TryParse(strPrice2, out test) == false) || (decimal.TryParse(strPrice3, out test) == false)
+                || (decimal.TryParse(strQuantity1, out test) == false) || (decimal.TryParse(strQuantity2, out test) == false) || (decimal.TryParse(strQuantity3, out test) == false))
+            {
+                Console.WriteLine("Not all of the given input was numeric, please try again");
+
+                Console.WriteLine("Give price of product 1");
+                strPrice1 = Console.ReadLine();
+
+                Console.WriteLine("Give price of product 2");
+                strPrice2 = Console.ReadLine();
+
+                Console.WriteLine("Give price of product 3");
+                strPrice3 = Console.ReadLine();
+
+                Console.WriteLine("Give quantity of product 1");
+                strQuantity1 = Console.ReadLine();
+
+                Console.WriteLine("Give quantity of product 2");
+                strQuantity2 = Console.ReadLine();
+
+                Console.WriteLine("Give quantity of product 3");
+                strQuantity3 = Console.ReadLine();
+            }
+
+            // Converting string to decimal
+            Price1 = Convert.ToDecimal(strPrice1);
+            Price2 = Convert.ToDecimal(strPrice2);
+            Price3 = Convert.ToDecimal(strPrice3);
+
+            quantity1 = Convert.ToDecimal(strQuantity1);
+            quantity2 = Convert.ToDecimal(strQuantity2);
+            quantity3 = Convert.ToDecimal(strQuantity3);
+
+            subtotal = (quantity1 * Price1) + (quantity2 * Price2) + (quantity3 * Price3);
+            taxPrice = subtotal * (tax / 100);
+            priceTotal = subtotal - taxPrice;
+
+            //round result to two decimals
+            subtotal = Math.Round(subtotal, 2);
+            taxPrice = Math.Round(taxPrice, 2);
+            priceTotal = Math.Round(priceTotal, 2);
+
+
+            Console.WriteLine("Subtotal of these products is: " + subtotal);
+            Console.WriteLine("Tax: " + taxPrice);
+            Console.WriteLine("Total price is: " + priceTotal);
+
+
+            Console.ReadKey();
+
+        }
+    }
+}
